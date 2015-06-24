@@ -1,0 +1,121 @@
+import java.util.HashMap;
+import java.util.ArrayList;
+
+parser code{: 	public HashMap<String, Constructor> rConstructors = new HashMap<String, Constructor>(); :}
+				
+
+/* Terminals (tokens returned by the scanner). */
+terminal String STRING, NULL;
+terminal Boolean FALSE, TRUE;
+terminal Long HEXLONG, LONG;
+terminal Integer HEXINTEGER, INTEGER;
+terminal Float FLOAT;
+terminal Double DOUBLE;
+
+terminal COLON;
+terminal LCLASP;
+terminal RCLASP;
+terminal LBRACKET;
+terminal RBRACKET;
+terminal LPARENTHESIS;
+terminal RPARENTHESIS;
+terminal ID;
+
+/* Non-terminals */
+non terminal Constructor Constructor;
+non terminal ArrayList List, ExpList;
+non terminal HashMap Map, ExpMap;
+non terminal Value;
+non terminal Start;
+
+/*
+
+
+/* The grammar */
+Start ::= 	Value: value
+			{:RESULT = value;:}
+			|
+			Constructor: obj
+			{:RESULT = obj;:}
+			;
+Value ::= 	INTEGER:INTEGER
+				{:RESULT = INTEGER;:}
+		|
+			LONG:LONG
+				{:RESULT = LONG;:}
+		|
+			DOUBLE:DOUBLE
+				{:RESULT = DOUBLE;:}
+		|
+			FLOAT:FLOAT
+				{:RESULT = FLOAT;:}
+		|
+			HEXINTEGER:hint
+				{:RESULT = hint;:}
+		|
+			HEXLONG:hlong
+				{:RESULT= hlong;:}
+		|
+			STRING:string
+				{:RESULT = string;:}
+		|
+			TRUE:TRUE
+				{:RESULT = TRUE;:}
+		|
+			FALSE:FALSE
+				{:RESULT = FALSE;:}
+		|
+			NULL:nulo
+				{:RESULT = nulo;:}
+		|
+			ExpList:expl
+			{:RESULT = expl;:}
+		|
+			ExpMap:expm
+			{:RESULT = expm;:}
+		;
+
+Constructor ::= 	ID:name LPARENTHESIS List:param RPARENTHESIS
+						{: 	Constructor cClass = parser.rConstructors.get(name);
+							RESULT = cClass.Build(param);:}
+					|
+					ID:name LPARENTHESIS RPARENTHESIS
+							{: 	Constructor cClass = parser.rConstructors.get(name);
+							RESULT = cClass.Build(new ArrayList());:}
+					;
+ExpList ::= LBRACKET RBRACKET
+				{:RESULT = new ArrayList();:}
+			|
+			LBRACKET List:l RBRACKET
+				{:RESULT = l;:}
+			;
+	
+List ::= 	Value:v1 List:l 
+				{:RESULT = l;
+				RESULT.add(0,v1);
+				:}
+			|
+			Value:v1
+				{:RESULT = new ArrayList();
+					RESULT.add(0,v1);
+					:}
+			;		
+
+ExpMap ::= 	LCLASP RCLASP
+				{:RESULT = new HashMap<String,String>();:}
+			|
+			LCLASP Map:map RCLASP
+				{:RESULT = map;
+				:}
+		;
+
+Map ::= 	Value:v1 COLON Value:v2 Map:map
+				{:RESULT = map;
+				RESULT.put(v1,v2);
+				:}
+			|
+			Value:v1 COLON Value:v2
+				{:RESULT = new HashMap<Object,Object>();
+				RESULT.put(v1,v2);
+				:}
+			;
