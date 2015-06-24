@@ -8,18 +8,22 @@ import junit.framework.TestCase;
 
 import java.io.CharArrayReader;
 import java.io.Reader;
+import java.util.Objects;
 
 public class TestValido extends TestCase {
 
     String validos [] = new String[100];
     Reader reader;
-    Parser parser;
     Scanner scanner = new Scanner(null);
+    Parser parser = new Parser(scanner,new DefaultSymbolFactory());
     Symbol symbol;
 
     protected void setUp(){
 
-        // Inicializo todo el verctor de pruebas en null
+        // constructores
+        parser.rConstructors.put("Date", new Fecha(0,0,0));
+
+        // Inicializo el verctor de pruebas en null
         for (int i = 0; i < validos.length; i++) { validos[i] = "null";}
 
         // Valores simples expresados con palabras reservadas:
@@ -63,32 +67,39 @@ public class TestValido extends TestCase {
         validos[99] = "\"Todos los casos de prueba se han parseado correctamente.!!!! :-)\"";
     }
 
-    private void parse(String input) {
-        reader = new CharArrayReader(input.toCharArray());
+    private void parse(int i) {
+
+        reader = new CharArrayReader(validos[i].toCharArray());
         scanner.yyreset(reader);
-        parser = new Parser(scanner, new DefaultSymbolFactory());
+        parser.setScanner(scanner);
 
         try {
-            // Registro de constructores
-            parser.rConstructors.put("Date", new Fecha(0,0,0));
-
             symbol = parser.parse();
-            System.out.println(symbol.value);
+            Object value = symbol.value;
+            System.out.println(value);
+
+            if (i == 0) assertEquals("parser la entrada:" + validos[i], true, value);
+            if (i == 1) assertEquals("parser la entrada:" + validos[i], false, value);
+            if (i == 2) assertEquals("parser la entrada:" + validos[i], null, value);
+            if (i == 3) assertEquals("parser la entrada:" + validos[i], new Integer(1), value);
+            if (i == 4) assertEquals("parser la entrada:" + validos[i], new Integer(123), value);
+            if (i == 5) assertEquals("parser la entrada:" + validos[i], new Integer(-4), value);
+            if (i == 6) assertEquals("parser la entrada:" + validos[i], new Integer(15), value);
 
         } catch (Exception e) {
-            parser.rConstructors.get("Fecha");
             e.printStackTrace();
-            throw new IllegalStateException("parsing"+ input , e);
+            throw new IllegalStateException("parsing" + validos[i] , e);
         }
     }
 
     public void testCases() {
-        for (String s:validos) {
+        for (int i = 0; i < validos.length; i++) {
+
             try {
-            parse(s);
+                parse(i);
             }
             catch (Exception e) {
-                System.out.println("Caught an exception. Parsing value: " + s );
+                System.out.println("Caught an exception. Parsing value: " + validos[i] );
                 for (StackTraceElement stackTraceElement : e.getStackTrace()) {
                     System.out.println(stackTraceElement);
                 }
