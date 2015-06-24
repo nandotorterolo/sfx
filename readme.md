@@ -7,9 +7,14 @@ expresiones:
 
 * Valores simples expresados con palabras reservadas:
   
-  true false Valores booleanos.
+  | Valores booleanos:|
+  |-------------------|
+  | true              |
+  | false             |
   
-  null Valor nulo o no definido.
+  | Valor nulo o no definido.|
+  |--------------------------|
+  | null                     |
   
 * Numerales enteros y de punto flotante, siguiendo las convenciones de Java:
   1 123 -4 +15 Enteros de 32 bits (int).
@@ -51,3 +56,35 @@ String directamente o con la ruta al archivo donde se encuentra. El analizador s
 resultante.
 El componente debe permitir registrar constructores dando un identificador que se utilizará en el fuente y un método para
 construir el objeto dada una lista de argumentos. 
+
+##Planteo 2
+La segunda versión del lenguaje se llama SXF2. Además de las construcciones anteriores, se agregan abreviaciones (conocidas
+como azúcar sintáctico): 
+
+* Notación abreviada de listas dentro de listas:
+  [1 2 | 3 4 | 5 6] Equivalente a: [[1 2] [3 4] [5 6]].
+  [1 2 | 3 | | 4 5 6] Equivalente a: [[1 2] [3] [] [4 5 6]].
+  [| true |] Equivalente a: [[] [true] []].
+  [|] Equivalente a: [[] []].
+  [| [1 2] | 3] Equivalente a: [[] [[1 2]] [3]].
+
+* Notación abreviada de listas de diccionarios:
+  {"x":0 "y":1 | "x":1 "y":0 | "x":0 "y":1} Equivalente a: [{"x":0 "y":1} {"x":1 "y":0}
+  {"x":0 "y":1}].
+  {"a":true | "b":false "c":1.2} Equivalente a:
+  [{"a":true} {"b":false "c":1.2}].
+  {| "x":77 |} Equivalente a: [{} {"x":77} {}].
+
+* Mapeo de constructor a lista:
+  Class1[1 2 | 3 4 | 5 6]
+  Class1[[1 2] [3 4] [5 6]]
+  Class1()[1 2 | 3 4 | 5 6]
+
+Equivalente a:
+  [Class1(1 2) Class1(3 4) Class1(5 6)].
+  Class2["a" 7 0 | "a" 1.1]
+  Class2("a")[7 0 | 1.1]
+  Equivalente a:
+  [Class2("a" 7 0) Class2("a" 1.1)]. 
+
+El componente implementado para la versión anterior se debe extender con las nuevas construcciones. 
