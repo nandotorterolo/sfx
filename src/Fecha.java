@@ -11,7 +11,7 @@ public class Fecha implements Constructor {
 
     public Date fecha = new Date(0L);
     public Fecha(Integer año, Integer mes, Integer dia) {
-        fecha = new Date(año, mes, dia);
+        fecha = new Date(año -1900, mes, dia);
     }
 
     @Override
