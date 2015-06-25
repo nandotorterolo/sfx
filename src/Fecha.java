@@ -1,13 +1,14 @@
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 /**
  * Created by fernando on 24/06/15.
  */
-public class Fecha implements Constructor {
+public class Fecha {
 
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    SimpleDateFormat dateFormat2 = new SimpleDateFormat("E MMM dd HH:mm:ss Z yyyy");
+    SimpleDateFormat dateFormat3 = new SimpleDateFormat("E MMM dd HH:mm:ss z yyyy");
 
     public Date fecha = new Date(0L);
     public Fecha(Integer año, Integer mes, Integer dia) {
@@ -19,8 +20,9 @@ public class Fecha implements Constructor {
         return dateFormat.format(fecha);
     }
 
-    @Override
-    public Constructor Build(ArrayList<Object> Parameters) {
-        return new Fecha((Integer)Parameters.get(0) , (Integer)Parameters.get(1) , (Integer)Parameters.get(2));
+    @Override   // Fixme
+    public boolean equals(Object obj) {
+        return fecha.equals(obj);
     }
+
 }

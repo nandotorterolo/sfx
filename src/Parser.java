@@ -175,7 +175,7 @@ public class Parser extends java_cup.runtime.lr_parser {
   public int error_sym() {return 1;}
 
 
- 	public HashMap<String, Constructor> rConstructors = new HashMap<String, Constructor>(); 
+ 	public HashMap<String, SFXFactory> rConstructors = new HashMap<String, SFXFactory>(); 
 
 /** Cup generated class to encapsulate user supplied action code.*/
 @SuppressWarnings({"rawtypes", "unchecked", "unused"})
@@ -233,7 +233,7 @@ class CUP$Parser$actions {
               Object RESULT =null;
 		int objleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int objright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
-		Constructor obj = (Constructor)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		Object obj = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		RESULT = obj;
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("Start",6, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -306,7 +306,7 @@ class CUP$Parser$actions {
 		int hlongleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int hlongright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		Long hlong = (Long)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		RESULT=hlong;
+		RESULT= hlong;
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("Value",5, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -386,16 +386,15 @@ class CUP$Parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 15: // Constructor ::= ID LPARENTHESIS List RPARENTHESIS 
             {
-              Constructor RESULT =null;
+              Object RESULT =null;
 		int nameleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).left;
 		int nameright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).right;
 		Object name = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
 		int paramleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
 		int paramright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
 		ArrayList param = (ArrayList)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
-
-    	 	Constructor cClass = parser.rConstructors.get(name);
-              RESULT = cClass.Build(param);
+		 	SFXFactory cClass = parser.rConstructors.get(name);
+							RESULT = cClass.Build(param);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("Constructor",0, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -403,11 +402,11 @@ class CUP$Parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 16: // Constructor ::= ID LPARENTHESIS RPARENTHESIS 
             {
-              Constructor RESULT =null;
+              Object RESULT =null;
 		int nameleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
 		int nameright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
 		Object name = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
-		 	Constructor cClass = parser.rConstructors.get(name);
+		 	SFXFactory cClass = parser.rConstructors.get(name);
 							RESULT = cClass.Build(new ArrayList());
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("Constructor",0, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }

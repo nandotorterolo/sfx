@@ -1,7 +1,7 @@
 import java.util.HashMap;
 import java.util.ArrayList;
 
-parser code{: 	public HashMap<String, Constructor> rConstructors = new HashMap<String, Constructor>(); :}
+parser code{: 	public HashMap<String, SFXFactory> rConstructors = new HashMap<String, SFXFactory>(); :}
 				
 
 /* Terminals (tokens returned by the scanner). */
@@ -22,7 +22,7 @@ terminal RPARENTHESIS;
 terminal ID;
 
 /* Non-terminals */
-non terminal Constructor Constructor;
+non terminal Object Constructor;
 non terminal ArrayList List, ExpList;
 non terminal HashMap Map, ExpMap;
 non terminal Value;
@@ -76,11 +76,11 @@ Value ::= 	INTEGER:INTEGER
 		;
 
 Constructor ::= 	ID:name LPARENTHESIS List:param RPARENTHESIS
-						{: 	Constructor cClass = parser.rConstructors.get(name);
+						{: 	SFXFactory cClass = parser.rConstructors.get(name);
 							RESULT = cClass.Build(param);:}
 					|
 					ID:name LPARENTHESIS RPARENTHESIS
-							{: 	Constructor cClass = parser.rConstructors.get(name);
+							{: 	SFXFactory cClass = parser.rConstructors.get(name);
 							RESULT = cClass.Build(new ArrayList());:}
 					;
 ExpList ::= LBRACKET RBRACKET
