@@ -1,3 +1,5 @@
+package ucu;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -19,10 +21,4 @@ public class Fecha {
     public String toString() {
         return dateFormat.format(fecha);
     }
-
-    @Override   // Fixme
-    public boolean equals(Object obj) {
-        return fecha.equals(obj);
-    }
-
 }

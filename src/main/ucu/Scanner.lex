@@ -1,5 +1,9 @@
 /* JFlex example: partial Java language lexer specification */
+package ucu;
+import ucu.SFXFactory;
+import ucu.sym;
 import java_cup.runtime.*;
+
 
 /**
  * This class is a simple example lexer.

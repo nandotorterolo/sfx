@@ -1,4 +1,4 @@
-/**
+package ucu; /**
  * Created by fernando on 24/06/15.
  */
 
@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+@Deprecated
 public class TestValido extends TestCase {
 
     Logger logger = java.util.logging.Logger.getAnonymousLogger();
