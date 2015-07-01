@@ -22,7 +22,8 @@ public class Runner {
                 TestNumeralesPuntoFlotante.class,
                 TestValoresSimples.class,
                 TestListasNotacionAbreviada.class,
-                TestListasDiccionariosNotacionAbreviada.class);
+                TestListasDiccionariosNotacionAbreviada.class,
+                TestMapeoConstructorLista.class);
 
         for (Failure failure : result.getFailures()) {
             System.out.println("Failure:" + failure.toString());
