@@ -103,8 +103,8 @@ Constructor ::= ID:name LPARENTHESIS List:param RPARENTHESIS
 				:}
 				|
 				ID:name LPARENTHESIS List:param TP RPARENTHESIS	ExpList:el
-					{:
-				RESULT = Builder(name, param, el);
+				{:
+				    RESULT = Builder(name, param, el);
 				:}
 				;
 ExpList ::=

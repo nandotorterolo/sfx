@@ -119,6 +119,8 @@ como azúcar sintáctico):
 
 Equivalente a:
   [Class1(1 2) Class1(3 4) Class1(5 6)].
+  
+  
   Class2["a" 7 0 | "a" 1.1]
   Class2("a")[7 0 | 1.1]
   Equivalente a:
