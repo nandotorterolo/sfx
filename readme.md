@@ -108,10 +108,8 @@ como azúcar sintáctico):
   [| [1 2] | 3] Equivalente a: [[] [[1 2]] [3]].
 
 * Notación abreviada de listas de diccionarios:
-  {"x":0 "y":1 | "x":1 "y":0 | "x":0 "y":1} Equivalente a: [{"x":0 "y":1} {"x":1 "y":0}
-  {"x":0 "y":1}].
-  {"a":true | "b":false "c":1.2} Equivalente a:
-  [{"a":true} {"b":false "c":1.2}].
+  {"x":0 "y":1 | "x":1 "y":0 | "x":0 "y":1} Equivalente a: [{"x":0 "y":1} {"x":1 "y":0} {"x":0 "y":1}].
+  {"a":true | "b":false "c":1.2} Equivalente a:  [{"a":true} {"b":false "c":1.2}].
   {| "x":77 |} Equivalente a: [{} {"x":77} {}].
 
 * Mapeo de constructor a lista:

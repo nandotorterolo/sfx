@@ -8,6 +8,7 @@ package ucu;
 /** CUP generated interface containing symbol constants. */
 public interface sym {
   /* terminals */
+  public static final int PIPE = 20;
   public static final int LONG = 7;
   public static final int RCLASP = 14;
   public static final int LCLASP = 13;
@@ -26,6 +27,7 @@ public interface sym {
   public static final int FALSE = 4;
   public static final int error = 1;
   public static final int INTEGER = 9;
+  public static final int TP = 21;
   public static final int NULL = 3;
   public static final int DOUBLE = 11;
   public static final String[] terminalNames = new String[] {
@@ -48,7 +50,9 @@ public interface sym {
   "RBRACKET",
   "LPARENTHESIS",
   "RPARENTHESIS",
-  "ID"
+  "ID",
+  "PIPE",
+  "TP"
   };
 }
 

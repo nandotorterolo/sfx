@@ -2,7 +2,20 @@ package ucu;
 import java.util.HashMap;
 import java.util.ArrayList;
 
-parser code{: 	public HashMap<String, SFXFactory> rConstructors = new HashMap<String, SFXFactory>(); :}
+parser code{:
+    public HashMap<String, SFXFactory> rConstructors = new HashMap<String, SFXFactory>();
+     public ArrayList<Object> Builder(Object name, ArrayList fijos, ArrayList variables) {
+        ArrayList<ArrayList> variables1 = variables;
+    	SFXFactory cClass = rConstructors.get(name.toString());
+    	ArrayList<Object> objetosResultado = new ArrayList<Object>();
+    	for (ArrayList param: variables1){
+    	    ArrayList<Object> arrayFinal = fijos;
+    		arrayFinal.addAll(variables1);
+    		objetosResultado.add(cClass.Build(param));
+    	}
+    	return objetosResultado;
+    }
+:}
 				
 
 /* Terminals (tokens returned by the scanner). */
@@ -21,16 +34,17 @@ terminal RBRACKET;
 terminal LPARENTHESIS;
 terminal RPARENTHESIS;
 terminal ID;
+terminal PIPE;
+terminal TP;
+
 
 /* Non-terminals */
-non terminal Object Constructor;
-non terminal ArrayList List, ExpList;
-non terminal HashMap Map, ExpMap;
+non terminal Object Constructor, ExpMap;
+non terminal ArrayList List, ExpList, ListPipe, ListAbrev;
+non terminal HashMap Map;
 non terminal Value;
 non terminal Start;
-
-/*
-
+non terminal ArrayList MapAbrev;
 
 /* The grammar */
 Start ::= 	Value: value
@@ -76,47 +90,90 @@ Value ::= 	INTEGER:INTEGER
 			{:RESULT = expm;:}
 		;
 
-Constructor ::= 	ID:name LPARENTHESIS List:param RPARENTHESIS
-						{: 	SFXFactory cClass = parser.rConstructors.get(name);
-							RESULT = cClass.Build(param);:}
-					|
-					ID:name LPARENTHESIS RPARENTHESIS
-							{: 	SFXFactory cClass = parser.rConstructors.get(name);
-							RESULT = cClass.Build(new ArrayList());:}
-					;
-ExpList ::= LBRACKET RBRACKET
-				{:RESULT = new ArrayList();:}
-			|
+Constructor ::= ID:name LPARENTHESIS List:param RPARENTHESIS
+				{:
+					SFXFactory cClass = parser.rConstructors.get(name);
+					RESULT = cClass.Build(param);
+				:}
+				|
+				ID:name ExpList:el
+				{:
+				    RESULT = Builder(name, new ArrayList<Object>(), el);
+				:}
+				|
+				ID:name LPARENTHESIS List:param TP RPARENTHESIS	ExpList:el
+					{:
+				RESULT = Builder(name, param, el);
+				:}
+				;
+ExpList ::=
 			LBRACKET List:l RBRACKET
-				{:RESULT = l;:}
+			{:
+			    RESULT = l;
+			:}
+			|
+			LBRACKET ListAbrev:la RBRACKET
+			{:
+			    RESULT = la;
+			:}
 			;
-	
-List ::= 	Value:v1 List:l 
-				{:RESULT = l;
-				RESULT.add(0,v1);
-				:}
-			|
-			Value:v1
-				{:RESULT = new ArrayList();
-					RESULT.add(0,v1);
-					:}
-			;		
 
-ExpMap ::= 	LCLASP RCLASP
-				{:RESULT = new HashMap<String,String>();:}
+ListAbrev ::= List:l PIPE List:l1
+			{:
+				RESULT = new ArrayList();
+				RESULT.add(0, l1);
+				RESULT.add(0, l);
+			:}
 			|
-			LCLASP Map:map RCLASP
-				{:RESULT = map;
-				:}
+			List:l PIPE ListAbrev:la
+			{:
+				RESULT =  la;
+				RESULT.add(0,l);
+			:}
+			;
+
+List ::= 	Value:v1 List:l
+			{:
+				RESULT = l;
+				RESULT.add(0,v1);
+			:}
+			|
+			{:
+				RESULT = new ArrayList();
+			:}
+			;
+
+ExpMap ::= 	LCLASP Map:map RCLASP
+			{:
+				RESULT = map;
+			:}
+			|
+			LCLASP MapAbrev:mapAbrev RCLASP
+            {:
+				RESULT = mapAbrev;
+			:}
 		;
 
+MapAbrev ::= Map:map1 PIPE Map:map2
+			{:
+                RESULT = new ArrayList();
+                RESULT.add(map2);
+                RESULT.add(map1);
+			:}
+			|
+			Map:map PIPE MapAbrev:mapAbrev
+			{:
+                RESULT = mapAbrev;
+                RESULT.add(map);
+			:}
+
+			;
+
 Map ::= 	Value:v1 COLON Value:v2 Map:map
-				{:RESULT = map;
+				{:
+				RESULT = map;
 				RESULT.put(v1,v2);
 				:}
 			|
-			Value:v1 COLON Value:v2
-				{:RESULT = new HashMap<Object,Object>();
-				RESULT.put(v1,v2);
-				:}
+			{:RESULT = new HashMap<Object,Object>();:}
 			;

@@ -42,6 +42,7 @@ import java_cup.runtime.*;
 \(								{ return symbol(LPARENTHESIS); }
 \)								{ return symbol(RPARENTHESIS); }
 \:								{ return symbol(COLON); }
+\|                              { return symbol(PIPE); }
 [ \r\n\t\f]		                { /* ignorar */ }
 
 (-|\+)?([0-9]+)											{return symbol (INTEGER, Integer.parseInt(yytext())); }
