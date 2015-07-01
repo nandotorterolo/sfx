@@ -208,7 +208,8 @@ public class Parser extends java_cup.runtime.lr_parser {
     	SFXFactory cClass = rConstructors.get(name.toString());
     	ArrayList<Object> objetosResultado = new ArrayList<Object>();
     	for (ArrayList param: variables1){
-    	    ArrayList<Object> arrayFinal = fijos;
+    	    ArrayList<Object> arrayFinal = new ArrayList<Object>();
+    	    arrayFinal.addAll(fijos);
     		arrayFinal.addAll(variables1);
     		objetosResultado.add(cClass.Build(param));
     	}

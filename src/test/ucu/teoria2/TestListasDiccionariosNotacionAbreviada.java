@@ -25,17 +25,31 @@ public class TestListasDiccionariosNotacionAbreviada extends TestCase {
     }
 
     /**
-     * {"x":0 "y":1 | "x":1 "y":0 | "x":0 "y":1} Equivalente a: [{"x":0 "y":1} {"x":1 "y":0}
+     * {"x":0 "y":1 | "x":1 "y":0 | "x":0 "y":1} Equivalente a: [{"x":0 "y":1} {"x":1 "y":0} {"x":0 "y":1}]
      */
-//    public void testLista1() {  //fixme
-//        String value = "\"{\"x\":0 \"y\":1 | \"x\":1 \"y\":0 | \"x\":0 \"y\":1}\"";
-//
-//        logger.log(Level.INFO, value);
-//
-//        ArrayList listRes = new ArrayList();
-//
-//        TestCase.assertEquals(value, listRes, Parse.parse(value));
-//    }
+    public void testLista1() {
+        String value = "{\"x\":0 \"y\":1 | \"x\":1 \"y\":0 | \"x\":0 \"y\":1}";
+
+        logger.log(Level.INFO, value);
+
+        HashMap map1 = new HashMap<Object, Object>();
+        map1.put("\"x\"", 0);
+        map1.put("\"y\"", 1);
+
+        HashMap map2 = new HashMap<Object, Object>();
+        map2.put("\"x\"", 1);
+        map2.put("\"y\"", 0);
+
+        HashMap map3 = new HashMap<Object, Object>();
+        map3.put("\"x\"", 0);
+        map3.put("\"y\"", 1);
+        ArrayList listRes = new ArrayList();
+        listRes.add(map1);
+        listRes.add(map2);
+        listRes.add(map3);
+
+        TestCase.assertEquals(value, listRes, Parse.parse(value));
+    }
 
     /**
      * {"a":true | "b":false "c":1.2}               Equivalente a: [{"a":true} {"b":false "c":1.2}].
@@ -81,6 +95,5 @@ public class TestListasDiccionariosNotacionAbreviada extends TestCase {
 
         TestCase.assertEquals(value, listRes, Parse.parse(value));
     }
-
 
 }
