@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eclipse-userlibraries>
+  <library name="java-cup-11b-runtime">
+    <archive path="/home/fernando/projects/sfx/lib/java-cup-11b-runtime.jar" />
+  </library>
+  <library name="tools">
+    <archive path="/home/fernando/projects/sfx/tools/java-cup-11b.jar" />
+    <archive path="/home/fernando/projects/sfx/tools/jflex-1.6.1.jar" />
+    <archive path="/home/fernando/projects/sfx/tools/junit-4.12.jar" />
+  </library>
+  <library name="logback-access-1.1.2-sources">
+    <archive path="/opt/lib/logback-1.1.2/logback-access-1.1.2.jar" />
+    <archive path="/opt/lib/logback-1.1.2/logback-classic-1.1.2.jar" />
+    <archive path="/opt/lib/logback-1.1.2/logback-core-1.1.2.jar" />
+  </library>
+  <library name="sass-stdlib">
+    <archive path="/opt/IntellijIdea/idea-IU-135.909/plugins/sass/lib/stubs/sass_functions.scss" />
+  </library>
+  <library name="slf4j-api-1.7.7">
+    <archive path="/opt/lib/slf4j-1.7.7/slf4j-api-1.7.7.jar" />
+  </library>
+</eclipse-userlibraries>
+

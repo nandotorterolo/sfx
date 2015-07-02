@@ -20,7 +20,10 @@ public class Runner {
                 TestFecha.class,
                 TestLista.class,
                 TestNumeralesPuntoFlotante.class,
-                TestValoresSimples.class);
+                TestValoresSimples.class,
+                TestListasNotacionAbreviada.class,
+                TestListasDiccionariosNotacionAbreviada.class,
+                TestMapeoConstructorLista.class);
 
         for (Failure failure : result.getFailures()) {
             System.out.println("Failure:" + failure.toString());
