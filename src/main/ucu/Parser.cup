@@ -11,8 +11,8 @@ parser code{:
     	for (ArrayList param: variables1){
     	    ArrayList<Object> arrayFinal = new ArrayList<Object>();
     	    arrayFinal.addAll(fijos);
-    		arrayFinal.addAll(variables1);
-    		objetosResultado.add(cClass.Build(param));
+    		arrayFinal.addAll(param);
+    		objetosResultado.add(cClass.Build(arrayFinal));
     	}
     	return objetosResultado;
     }

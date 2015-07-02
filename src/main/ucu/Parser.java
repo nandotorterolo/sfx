@@ -210,8 +210,8 @@ public class Parser extends java_cup.runtime.lr_parser {
     	for (ArrayList param: variables1){
     	    ArrayList<Object> arrayFinal = new ArrayList<Object>();
     	    arrayFinal.addAll(fijos);
-    		arrayFinal.addAll(variables1);
-    		objetosResultado.add(cClass.Build(param));
+    		arrayFinal.addAll(param);
+    		objetosResultado.add(cClass.Build(arrayFinal));
     	}
     	return objetosResultado;
     }
@@ -472,7 +472,7 @@ class CUP$Parser$actions {
 		int elright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		ArrayList el = (ArrayList)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		
-				RESULT = Builder(name, param, el);
+				    RESULT = Builder(name, param, el);
 				
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("Constructor",0, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-5)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }

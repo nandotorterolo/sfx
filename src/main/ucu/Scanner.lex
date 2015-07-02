@@ -43,7 +43,9 @@ import java_cup.runtime.*;
 \)								{ return symbol(RPARENTHESIS); }
 \:								{ return symbol(COLON); }
 \|                              { return symbol(PIPE); }
+\.{3}                           { return symbol(TP); }
 [ \r\n\t\f]		                { /* ignorar */ }
+
 
 (-|\+)?([0-9]+)											{return symbol (INTEGER, Integer.parseInt(yytext())); }
 (-|\+)?([0-9]+)(L|l)									{return symbol (LONG, Long.parseLong(yytext().substring(0,yylength()-1))); }
