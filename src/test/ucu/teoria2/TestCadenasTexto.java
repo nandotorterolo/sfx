@@ -36,4 +36,5 @@ public class TestCadenasTexto extends TestCase {
         TestCase.assertEquals(value, "\"\n\\ሴ\"", Parse.parse(value));
     }
 
+
 }

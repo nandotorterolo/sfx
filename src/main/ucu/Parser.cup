@@ -50,9 +50,6 @@ non terminal ArrayList MapAbrev;
 /* The grammar */
 Start ::= 	Value: value
 			{:RESULT = value;:}
-			|
-			Constructor: obj
-			{:RESULT = obj;:}
 			;
 Value ::= 	INTEGER:INTEGER
 				{:RESULT = INTEGER;:}
@@ -89,6 +86,9 @@ Value ::= 	INTEGER:INTEGER
 		|
 			ExpMap:expm
 			{:RESULT = expm;:}
+        |
+			Constructor: obj
+			{:RESULT = obj;:}
 		;
 
 Constructor ::= ID:name LPARENTHESIS List:param RPARENTHESIS
